@@ -1,12 +1,14 @@
 <?php
+
     session_start();
     
-    if(isset($_SESSION['generated_password'])){
-        $generated_password = $_SESSION['generated_password'];
-        unset($_SESSION['generated_password']);
-    }else{
+    if(!isset($_SESSION['generated_password'])){
         header("Location: index.php");
     }
+    
+    $generated_password = $_SESSION['generated_password'];
+    unset($_SESSION['generated_password']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
