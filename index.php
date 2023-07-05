@@ -1,15 +1,20 @@
 <?php 
 
+    session_start();
+
     require __DIR__. '/functions.php';
 
-    if(isset($_GET['password_length'])){
-        $password_length = $_GET['password_length'];
-        
-        // GENERA UNA PASSWORD CASUALE
-        $generatedPassword = generatePassword($password_length);
-        
-        // MOSTRA LA PASSWORD DELL'UTENTE
-        echo "La tua password generata è: " .$generatedPassword;
+    if(!empty($_POST)){
+        if(isset($_POST['password_length'])){
+
+            $password_length = $_POST['password_length'];
+    
+            $generated_password = generatePassword($password_length);
+    
+            $_SESSION['generated_password'] = $generated_password;
+    
+            header("Location: view_password.php");
+        }
     }
 
 ?>
@@ -23,7 +28,7 @@
     <body>
         <h1>Strong Password Generator</h1>
 
-        <form action="index.php" method="GET">
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"> <!-- UTILIZZO DI $_SERVER['PHP_SELF'] COME ATTRIBUTO ACTION DEL FORM -->
             <label for="password_length">Lunghezza Password:</label>
             <input type="number" name="password_length" id="password_length" min="6" max="20" required>
             <br>
