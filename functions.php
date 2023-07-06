@@ -22,12 +22,14 @@
         $chars_length = strlen($chars);
     
         for($i = 0; $i < $length; $i++){
-            $randomIndex = rand(0, $chars_length - 1);
-            $password .= $chars[$randomIndex];
+            if($chars_length > 0){
+                $randomIndex = rand(0, $chars_length - 1);
+                $password .= $chars[$randomIndex];
     
-            if(!$allow_repeating){
-                $chars = substr_replace($chars, '', $randomIndex, 1);
-                $chars_length--;
+                if(!$allow_repeating){
+                    $chars = substr_replace($chars, '', $randomIndex, 1);
+                    $chars_length--;
+                }
             }
         }
     

@@ -13,14 +13,20 @@
         $include_symbols = isset($_POST['include_symbols']);
         $allow_repeating = ($_POST['allow_repeating'] == 'yes'); // Ottiene il valore selezionato
 
-        // GENERA LA PASSWORD IN BASE AI PARAMETRI SELEZIONATI
-        $generated_password = generatePassword($password_length, $include_numbers, $include_letters, $include_symbols, $allow_repeating);
+        // VERIFICA LA LUNGHEZZA DELLA PASSWORD
+        if($password_length >= 6 && $password_length <= 20){
 
-        // SALVA LA PASSWORD GENERATA NELLA SESSIONE
-        $_SESSION['generated_password'] = $generated_password;
+            // GENERA LA PASSWORD IN BASE AI PARAMETRI SELEZIONATI
+            $generated_password = generatePassword($password_length, $include_numbers, $include_letters, $include_symbols, $allow_repeating);
 
-        // REDIRECT ALLA PAGINA PER VISUALIZZARE LA PASWWORD
-        header("Location: view_password.php");
+            // SALVA LA PASSWORD GENERATA NELLA SESSIONE
+            $_SESSION['generated_password'] = $generated_password;
+
+            // REDIRECT ALLA PAGINA PER VISUALIZZARE LA PASWWORD
+            header("Location: view_password.php");
+        }else{
+            echo '<p style="color: #fff;">La password deve essere lunga da 6 a 20 caratteri</p>';
+        }
     }
 
 ?>
